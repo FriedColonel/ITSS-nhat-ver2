@@ -32,7 +32,7 @@ let sharingScreen = false;
 let joinRoomInit = async () => {
   document
     .getElementById('logo')
-    .insertAdjacentHTML('beforeend', `<span>Room ${uid}</span>`);
+    .insertAdjacentHTML('beforeend', `<span>Room ${roomId}</span>`);
   rtmClient = await AgoraRTM.createInstance(APP_ID);
 
   // get all room and find the room in which the user have at least one similar topic
@@ -50,7 +50,10 @@ let joinRoomInit = async () => {
     if (
       roomData.members[0].selectedTopic.reduce(
         (acc, topic) => acc + selectedTopic.includes(topic),
-        0
+        selectedTopic.includes('Tất cả') ||
+          roomData.members[0].selectedTopic.includes('Tất cả')
+          ? 0
+          : 1
       )
     ) {
       similarRooms.push(room);
