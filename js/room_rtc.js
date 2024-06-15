@@ -48,12 +48,11 @@ let joinRoomInit = async () => {
     if (roomId === uid) return;
 
     if (
+      selectedTopic.includes('Tất cả') ||
+      roomData.members[0].selectedTopic.includes('Tất cả') ||
       roomData.members[0].selectedTopic.reduce(
         (acc, topic) => acc + selectedTopic.includes(topic),
-        selectedTopic.includes('Tất cả') ||
-          roomData.members[0].selectedTopic.includes('Tất cả')
-          ? 0
-          : 1
+        0
       )
     ) {
       similarRooms.push(room);
